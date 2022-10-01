@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_01_155836) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_01_205559) do
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categorizations", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_categorizations_on_category_id"
+    t.index ["event_id"], name: "index_categorizations_on_event_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.string "location"
@@ -21,6 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_01_155836) do
     t.text "description"
     t.string "image_file_name", default: "placeholder.png"
     t.integer "capacity", default: 1
+    t.string "slug"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -50,6 +66,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_01_155836) do
     t.boolean "admin"
   end
 
+  add_foreign_key "categorizations", "categories"
+  add_foreign_key "categorizations", "events"
   add_foreign_key "likes", "events"
   add_foreign_key "likes", "users"
   add_foreign_key "registrations", "events"

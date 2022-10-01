@@ -4,7 +4,13 @@
     <ul class="left">
      
       <li>
-        <%= link_to "All Events", events_path %>
+        <%= link_to "Upcoming", events_path %>
+      </li>
+      <li>
+        <%= link_to "Free", filtered_events_path(:free) %>
+      </li>
+      <li>
+        <%= link_to "Recent", filtered_events_path(:recent) %>
       </li>
     </ul>
     <ul class="right">
